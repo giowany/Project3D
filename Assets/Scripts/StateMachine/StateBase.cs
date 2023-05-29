@@ -33,7 +33,7 @@ public class StateMenu : StateBase
 {
     public override void OnStateEnter(object o = null)
     {
-        GameManager.Instance.PouseGame();
+        
     }
 }
 
@@ -41,7 +41,7 @@ public class StatePlaying : StateBase
 {
     public override void OnStateEnter(object o = null)
     {
-        GameManager.Instance.ButtonStart();
+        
     }
 }
 
@@ -49,11 +49,11 @@ public class StateEndGame : StateBase
 {
     public override void OnStateEnter(object o = null)
     {
-        GameManager.Instance.EndGame();
+        
     }
 
     public override void OnStateExit()
     {
-        GameManager.Instance.RestartGame();
+        
     }
 }

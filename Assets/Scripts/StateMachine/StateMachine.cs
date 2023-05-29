@@ -2,42 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateMachine : MonoBehaviour
+public class StateMachine<T> where T : System.Enum
 {
-    public static StateMachine Instance;
-    public enum States
-    {
-        INITIATE,
-        MENU,
-        PLAYING,
-        ENDGAME
-    }
 
-    public Dictionary<States, StateBase> ditionaryStates;
+    public Dictionary<T, StateBase> ditionaryStates;
 
     private StateBase _currentState;
 
-    private void Awake()
+    public StateBase CurrentState
     {
-        Instance = this;
-
-        ditionaryStates = new Dictionary<States, StateBase>();
-        ditionaryStates.Add(States.INITIATE, new StateInitiante());
-        ditionaryStates.Add(States.MENU, new StateMenu());
-        ditionaryStates.Add(States.PLAYING, new StatePlaying());
-        ditionaryStates.Add(States.ENDGAME, new StateEndGame());
-
-        SwitchState(States.INITIATE);
+        get { return _currentState; }
     }
 
-    private void Update()
+
+    public void Init()
     {
-        if (_currentState != null) _currentState.OnStateStay();
-
-
+        ditionaryStates = new Dictionary<T, StateBase>();
     }
 
-    private void SwitchState(States state)
+    public void RegisterStates(T typeEnum, StateBase state)
+    {
+        ditionaryStates.Add(typeEnum, state);
+    }
+
+    public void SwitchState(T state)
     {
         if(_currentState != null) _currentState.OnStateExit();
 
@@ -46,18 +34,10 @@ public class StateMachine : MonoBehaviour
         if (_currentState != null) _currentState.OnStateEnter();
     }
 
-    public void StartGame()
+    public void Update()
     {
-        SwitchState(States.PLAYING);
-    }
+        if (_currentState != null) _currentState.OnStateStay();
 
-    public void EnterMenu()
-    {
-        SwitchState(States.MENU);
-    }
 
-    public void EndGame()
-    {
-        SwitchState(States.ENDGAME);
     }
 }
