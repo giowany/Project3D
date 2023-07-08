@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 15
   speedRotation: 200
-  speedRun: 50
-  jumpForce: 0
+  speedRun: 25
+  jumpForce: 350
   friction: {x: 0.1, y: 0, z: 0.1}
+  moveDirection: {x: 0, y: -9.81, z: 0}
   runBool: Run
   speedWalkAnim: 1
-  speedRunAnim: 25
+  speedRunAnim: 1.5
   swapDuration: 0.3
   jumpBool: Jump
   landingTrigger: Landing
