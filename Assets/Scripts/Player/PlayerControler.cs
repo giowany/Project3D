@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using DG.Tweening;
 using UnityEngine.EventSystems;
+using UnityEditor;
 
 public class PlayerControler : MonoBehaviour
 {
@@ -12,15 +14,16 @@ public class PlayerControler : MonoBehaviour
     public Animator animator;
     public SOPlayerConfig playerConfig;
     public string nameBool = "Run";
-    public float gravit = 9.81f;
+    public float gravity = -9.81f;
 
     private float _currentSpeed;
     private float _vSpeed;
     [SerializeField]private bool _isGrounded;
+    private Vector3 velocity;
 
     public void HandleMovement()
     {
-        if (!Input.GetButton("Run"))
+        if (!Keyboard.current.leftShiftKey.isPressed)
         {
             _currentSpeed = playerConfig.speed;
             animator.speed = playerConfig.speedWalkAnim;
@@ -32,14 +35,12 @@ public class PlayerControler : MonoBehaviour
             animator.speed = playerConfig.speedRunAnim;
         }
 
-        float axisX = Input.GetAxis("Horizontal");
-        float axisZ = Input.GetAxis("Vertical");
+        float axisX = Keyboard.current[Key.D].ReadValue() - Keyboard.current[Key.A].ReadValue();
+        float axisZ = Keyboard.current[Key.W].ReadValue() - Keyboard.current[Key.S].ReadValue();
 
         playerConfig.moveDirection = new Vector3(0f, 0f, axisZ);
         playerConfig.moveDirection = transform.TransformDirection(playerConfig.moveDirection);
         playerConfig.moveDirection *= _currentSpeed;
-        _vSpeed = gravit;
-        playerConfig.moveDirection.y -= _vSpeed;
         Jump();
 
         player.Move(playerConfig.moveDirection * Time.deltaTime);
@@ -55,15 +56,28 @@ public class PlayerControler : MonoBehaviour
 
     private void Jump()
     {
-        if (_isGrounded && Input.GetButtonDown("Jump"))
+        if (_isGrounded && Keyboard.current.spaceKey.wasPressedThisFrame)
         {
-            playerConfig.moveDirection.y += playerConfig.jumpForce;
+            velocity.y = Mathf.Sqrt(playerConfig.jumpForce * -2f * gravity);
         }
+    }
+
+    private void ApplyGravity()
+    {
+        if (_isGrounded && velocity.y < 0f)
+        {
+            velocity.y = -2f;
+        }
+
+        velocity.y += gravity * Time.deltaTime;
+
+        player.Move(velocity * Time.deltaTime);
     }
 
     private void Update()
     {
         _isGrounded = player.isGrounded;
         HandleMovement();
+        ApplyGravity();
     }
 }

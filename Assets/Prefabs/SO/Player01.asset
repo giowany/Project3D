@@ -15,9 +15,9 @@ MonoBehaviour:
   speed: 15
   speedRotation: 200
   speedRun: 25
-  jumpForce: 350
+  jumpForce: 5
   friction: {x: 0.1, y: 0, z: 0.1}
-  moveDirection: {x: 0, y: -9.81, z: 0}
+  moveDirection: {x: 0, y: 0, z: 0}
   runBool: Run
   speedWalkAnim: 1
   speedRunAnim: 1.5
