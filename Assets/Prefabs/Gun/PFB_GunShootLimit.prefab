@@ -47,8 +47,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileBase: {fileID: 7433166728082115692, guid: 9185af9696eacff4ca4757076e675417, type: 3}
   positionToshoot: {fileID: 4770980476499789443}
-  timeBetweenShoot: 0.3
+  timeBetweenShoot: 0.2
   speed: 50
+  updaterList: []
   maxBullet: 5
   timeToReload: 1
   _reloading: 0
