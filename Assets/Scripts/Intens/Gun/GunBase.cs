@@ -8,6 +8,7 @@ public class GunBase : MonoBehaviour
     public ProjectileBase projectileBase;
     public Transform positionToshoot;
     public float timeBetweenShoot = .3f;
+    public float speed = 50f;
 
     private Coroutine _currentCorotine;
 
@@ -22,7 +23,7 @@ public class GunBase : MonoBehaviour
             StopCoroutine(_currentCorotine);
     }
 
-    IEnumerator ShootCadence()
+    protected virtual IEnumerator ShootCadence()
     {
         while (true)
         {
@@ -31,10 +32,11 @@ public class GunBase : MonoBehaviour
         }
     }
 
-    private void Shoot()
+    protected virtual void Shoot()
     {
         var projectile = Instantiate(projectileBase);
         projectile.transform.position = positionToshoot.position;
         projectile.transform.rotation = positionToshoot.rotation;
+        projectile.speed = speed;
     }
 }

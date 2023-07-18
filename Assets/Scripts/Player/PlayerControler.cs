@@ -20,6 +20,24 @@ public class PlayerControler : MonoBehaviour
     private float _vSpeed;
     [SerializeField]private bool _isGrounded;
     private Vector3 velocity;
+    private Inputs _inputs;
+
+    private void Awake()
+    {
+        _inputs = new Inputs();
+        _inputs.GamePlay.Enable();
+    }
+
+    private void OnEnable()
+    {
+        if (_inputs != null)
+            _inputs.GamePlay.Enable();
+    }
+
+    private void OnDisable()
+    {
+        _inputs.GamePlay.Disable();
+    }
 
     public void HandleMovement()
     {
