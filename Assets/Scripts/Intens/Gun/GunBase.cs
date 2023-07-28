@@ -39,4 +39,6 @@ public class GunBase : MonoBehaviour
         projectile.transform.rotation = positionToshoot.rotation;
         projectile.speed = speed;
     }
+
+    public virtual void OnReload() { }
 }

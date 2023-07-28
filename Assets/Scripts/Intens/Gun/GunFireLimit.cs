@@ -71,4 +71,9 @@ public class GunFireLimit : GunBase
     {
         updaterList = GameObject.FindObjectsOfType<UIGunUpdater>().ToList();
     }
+
+    public override void OnReload()
+    {
+        Reload();
+    }
 }

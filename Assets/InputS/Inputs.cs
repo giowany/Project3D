@@ -35,6 +35,15 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""New action"",
+                    ""type"": ""Value"",
+                    ""id"": ""7ff528ff-bcde-4719-9f81-b96dd8755e5b"",
+                    ""expectedControlType"": ""Dpad"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -59,6 +68,61 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                     ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""2c103281-b759-4f1d-8706-22cc94e3bedc"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New action"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""62caa689-e317-4684-951e-8fdd9315d700"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""8dc31ac9-cac1-4e96-a004-db51d0fe243b"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""d0660b27-fc41-4432-9ccf-b5dd2a1f71b8"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""2f34fe81-d36c-4699-b9b5-3fec465441e3"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -68,6 +132,7 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
         // GamePlay
         m_GamePlay = asset.FindActionMap("GamePlay", throwIfNotFound: true);
         m_GamePlay_Shoot = m_GamePlay.FindAction("Shoot", throwIfNotFound: true);
+        m_GamePlay_Newaction = m_GamePlay.FindAction("New action", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -128,11 +193,13 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_GamePlay;
     private IGamePlayActions m_GamePlayActionsCallbackInterface;
     private readonly InputAction m_GamePlay_Shoot;
+    private readonly InputAction m_GamePlay_Newaction;
     public struct GamePlayActions
     {
         private @Inputs m_Wrapper;
         public GamePlayActions(@Inputs wrapper) { m_Wrapper = wrapper; }
         public InputAction @Shoot => m_Wrapper.m_GamePlay_Shoot;
+        public InputAction @Newaction => m_Wrapper.m_GamePlay_Newaction;
         public InputActionMap Get() { return m_Wrapper.m_GamePlay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -145,6 +212,9 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                 @Shoot.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnShoot;
                 @Shoot.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnShoot;
                 @Shoot.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnShoot;
+                @Newaction.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnNewaction;
+                @Newaction.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnNewaction;
+                @Newaction.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnNewaction;
             }
             m_Wrapper.m_GamePlayActionsCallbackInterface = instance;
             if (instance != null)
@@ -152,6 +222,9 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                 @Shoot.started += instance.OnShoot;
                 @Shoot.performed += instance.OnShoot;
                 @Shoot.canceled += instance.OnShoot;
+                @Newaction.started += instance.OnNewaction;
+                @Newaction.performed += instance.OnNewaction;
+                @Newaction.canceled += instance.OnNewaction;
             }
         }
     }
@@ -159,5 +232,6 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
     public interface IGamePlayActions
     {
         void OnShoot(InputAction.CallbackContext context);
+        void OnNewaction(InputAction.CallbackContext context);
     }
 }

@@ -8,48 +8,57 @@ public class PlayerAbilityShoot : PlayerAbilityBase
     public List<GunBase> gun;
     public Transform gunPosition;
 
-    private GunBase _currentGun;
+    [SerializeField]private List<GunBase> _currentGuns;
     private int _currentGunIndex = 0;
 
     private void CreatGun()
     {
-        if(_currentGun != null) Destroy(_currentGun);
-
-        _currentGun = Instantiate(gun[_currentGunIndex], gunPosition);
-
-        _currentGun.transform.localPosition = _currentGun.transform.localEulerAngles = Vector3.zero;
+        foreach(var i  in gun)
+        {
+            _currentGuns.Add(Instantiate(i, gunPosition));
+            i.transform.localPosition = i.transform.localEulerAngles = Vector3.zero;
+        }
     }
 
     protected override void Init()
     {
         base.Init();
         CreatGun();
+        OnSwitchGun();
         inputs.GamePlay.Shoot.performed += ctx => StartShoot();
         inputs.GamePlay.Shoot.canceled += ctx => StopShoot();
     }
 
     private void StartShoot()
     {
-        _currentGun.StartShoot();
+        _currentGuns[_currentGunIndex].StartShoot();
     }
 
     private void StopShoot()
     {
-        _currentGun.StopShoot();
+        _currentGuns[_currentGunIndex].StopShoot();
     }
 
     private void SwitchGuns()
     {
         if (Keyboard.current.digit1Key.wasPressedThisFrame)
         {
-                _currentGunIndex = 0;
-                CreatGun();
+            _currentGunIndex = 0;
+            OnSwitchGun(_currentGunIndex);
         }
         else if (Keyboard.current.digit2Key.wasPressedThisFrame)
         {
-                _currentGunIndex = 1;
-                CreatGun();
+            _currentGunIndex = 1;
+            OnSwitchGun(_currentGunIndex);
         }
+    }
+
+    private void OnSwitchGun(int i = 0)
+    {
+        foreach (var gun in _currentGuns)
+            gun.gameObject.SetActive(false);
+        _currentGuns[_currentGunIndex].gameObject.SetActive(true);
+        _currentGuns[_currentGunIndex].OnReload();
     }
 
     private void Update()
