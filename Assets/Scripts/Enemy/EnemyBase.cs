@@ -13,20 +13,39 @@ namespace Enemy
         public Collider colliderE;
         public FlashColor flashColor;
         public ParticleSystem enemyEarticleSystem;
+        public float damage = 5;
 
         [SerializeField]private float _currentLife;
         [SerializeField]private AnimationBase _animationBase;
+        protected bool isDead = false;
 
         [Header("Start Animation")]
         public float startAnimationDuration = .2f;
         public Ease startAnimationEase = Ease.OutBack;
         public bool startWithBornAnimation = true;
 
+        #region Unity Functions
         private void Awake()
         {
             Init();
         }
 
+        private void OnCollisionEnter(Collision collision)
+        {
+            PlayerControler p = collision.transform.GetComponent<PlayerControler>();
+
+            if(p != null)
+            {
+                Vector3 dir = collision.transform.position - transform.position;
+                dir = -dir.normalized;
+                dir.y = 0;
+
+                p.Damage(damage, dir);
+            }
+        }
+        #endregion
+
+        #region Functions
         protected void ResetLife()
         {
             _currentLife = startLife;
@@ -47,6 +66,7 @@ namespace Enemy
         protected virtual void OnKill()
         {
             if(colliderE != null) colliderE.enabled = false;
+            isDead = true;
             Destroy(gameObject, 3f);
             PlayAnimationByType(AnimationType.DEATH);
         }
@@ -63,6 +83,7 @@ namespace Enemy
                 Kill();
             }
         }
+        #endregion
 
         #region ANIMATION
         private void BornAniation()
@@ -78,6 +99,12 @@ namespace Enemy
 
         public void Damage(float damage)
         {
+            OnDamage(damage);
+        }
+        
+        public void Damage(float damage, Vector3 dir)
+        {
+            transform.DOMove(transform.position - dir, .1f);
             OnDamage(damage);
         }
     }

@@ -5,9 +5,11 @@ using UnityEngine.InputSystem;
 using DG.Tweening;
 using UnityEngine.EventSystems;
 using UnityEditor;
+using Animation;
 
-public class PlayerControler : MonoBehaviour
+public class PlayerControler : MonoBehaviour, IDamageable
 {
+    #region Setups
     [Header("References")]
     public Transform tPlayer;
     public CharacterController player;
@@ -15,17 +17,25 @@ public class PlayerControler : MonoBehaviour
     public SOPlayerConfig playerConfig;
     public string nameBool = "Run";
     public float gravity = -9.81f;
+    public float startLife = 10;
+    public AnimationBase animationBase;
+    public List<FlashColor> flashColorList;
 
     private float _currentSpeed;
     private float _vSpeed;
     [SerializeField]private bool _isGrounded;
     private Vector3 velocity;
     private Inputs _inputs;
+    private float _currLife;
+    public bool _isDead = false;
+    #endregion
 
+    #region Unity Functions
     private void Awake()
     {
         _inputs = new Inputs();
         _inputs.GamePlay.Enable();
+        _currLife = startLife;
     }
 
     private void OnEnable()
@@ -38,9 +48,19 @@ public class PlayerControler : MonoBehaviour
     {
         _inputs.GamePlay.Disable();
     }
+    private void Update()
+    {
+        _isGrounded = player.isGrounded;
+        HandleMovement();
+        ApplyGravity();
+    }
+    #endregion
 
+    #region Controller
     public void HandleMovement()
     {
+        if(_isDead) return;
+
         if (!Keyboard.current.leftShiftKey.isPressed)
         {
             _currentSpeed = playerConfig.speed;
@@ -63,11 +83,6 @@ public class PlayerControler : MonoBehaviour
 
         player.Move(playerConfig.moveDirection * Time.deltaTime);
 
-        /*var move = transform.forward * axisZ * _currentSpeed;
-        var v = new Vector3(0, 0, 0);
-        move.y -= gravit;
-
-        player.Move(move * Time.deltaTime);*/
         transform.Rotate(0, axisX * Time.deltaTime * playerConfig.speedRotation, 0);
         animator.SetBool(nameBool, axisZ != 0);
     }
@@ -92,10 +107,38 @@ public class PlayerControler : MonoBehaviour
         player.Move(velocity * Time.deltaTime);
     }
 
-    private void Update()
+    private void Kill()
     {
-        _isGrounded = player.isGrounded;
-        HandleMovement();
-        ApplyGravity();
+        OnKill();
+        Destroy(gameObject, 2f);
     }
+
+    private void OnKill()
+    {
+        _isDead = true;
+        animationBase.PlayAnimationByType(AnimationType.DEATH);
+    }
+
+    private void OnDamage(float damage)
+    {
+        if (_isDead) return;
+        flashColorList.ForEach(i => i.Flash());
+        _currLife -= damage;
+        if (_currLife <= 0f)
+            Kill();
+    }
+    #endregion
+
+    #region Interfaces
+    public void Damage(float damage)
+    {
+        OnDamage(damage);
+    }
+
+    public void Damage(float damage, Vector3 dir)
+    {
+        transform.DOMove(transform.position - dir, .1f);
+        OnDamage(damage);
+    }
+    #endregion
 }
