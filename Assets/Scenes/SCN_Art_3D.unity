@@ -941,6 +941,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PFB_Boss
       objectReference: {fileID: 0}
+    - target: {fileID: 7162020887105460546, guid: f6e1ab3e1b6f5fc4ea3cf8cc1c817618, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6e1ab3e1b6f5fc4ea3cf8cc1c817618, type: 3}
 --- !u!1001 &133542099
