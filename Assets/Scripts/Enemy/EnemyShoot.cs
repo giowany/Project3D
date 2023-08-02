@@ -4,19 +4,24 @@ using UnityEngine;
 
 namespace Enemy
 {
-    public class EnemyShoot : EnemyBase
+    public class EnemyShoot : InitialEnemy
     {
         public GunBase gun;
         public Transform player;
 
-        private void Update()
-        {
-            transform.LookAt(player);
-        }
-
-        private void Start()
+        public void StartShoot()
         {
             gun.StartShoot();
+        }
+
+        public void StopShoot()
+        {
+            gun.StopShoot();
+        }
+
+        public void LookAtPlayr()
+        {
+            transform.LookAt(player);
         }
     }
 }

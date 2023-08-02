@@ -20,7 +20,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5272859084637674434
 Transform:
   m_ObjectHideFlags: 0
@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5272859084637674433}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 422.51, y: -7.41, z: 60.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5272859085774377822}
@@ -102,19 +102,17 @@ MonoBehaviour:
   startLife: 10
   colliderE: {fileID: 4126144865765474937}
   flashColor: {fileID: 8209229936004852845}
-  enemyEarticleSystem: {fileID: 3093086128476358878}
+  enemyParticleSystem: {fileID: 0}
   damage: 5
   _currentLife: 0
   _animationBase: {fileID: 5272859084637674435}
   startAnimationDuration: 0.2
   startAnimationEase: 27
   startWithBornAnimation: 1
-  waypoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  waypoints: []
   minDistance: 1
   speed: 5
+  isAttack: 0
 --- !u!54 &558566272757975157
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -311,10 +309,5 @@ PrefabInstance:
 --- !u!4 &3530804061886904814 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2000640359275420526, guid: fd0c6f78b7d558647b7752af30d328d8, type: 3}
-  m_PrefabInstance: {fileID: 3115466578644017792}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &3093086128476358878 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 130750808423148126, guid: fd0c6f78b7d558647b7752af30d328d8, type: 3}
   m_PrefabInstance: {fileID: 3115466578644017792}
   m_PrefabAsset: {fileID: 0}

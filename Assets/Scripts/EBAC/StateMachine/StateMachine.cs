@@ -30,9 +30,9 @@ namespace EBAC.StateMachine
         {
             if (_currentState != null) _currentState.OnStateExit();
 
-            if (_currentState != null) _currentState.OnStateEnter(objs);
-
             _currentState = ditionaryStates[state];
+
+            if (_currentState != null) _currentState.OnStateEnter(objs);
         }
 
         public void Update()

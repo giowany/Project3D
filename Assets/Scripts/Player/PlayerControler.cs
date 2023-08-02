@@ -6,6 +6,7 @@ using DG.Tweening;
 using UnityEngine.EventSystems;
 using UnityEditor;
 using Animation;
+using EBAC.Core.Singleton;
 
 public class PlayerControler : MonoBehaviour, IDamageable
 {

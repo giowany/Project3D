@@ -62,7 +62,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2608591650195173373}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 422.51, y: -7.41, z: 60.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2608591649175906146}
@@ -84,7 +84,7 @@ MonoBehaviour:
   startLife: 10
   colliderE: {fileID: 4102832048654452678}
   flashColor: {fileID: 2610228374712046814}
-  enemyEarticleSystem: {fileID: 3527550095554430089}
+  enemyParticleSystem: {fileID: 0}
   damage: 5
   _currentLife: 0
   _animationBase: {fileID: 2608591650195173375}
@@ -222,11 +222,6 @@ PrefabInstance:
 --- !u!4 &3091535306175362489 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2000640359275420526, guid: fd0c6f78b7d558647b7752af30d328d8, type: 3}
-  m_PrefabInstance: {fileID: 3541207225613872855}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &3527550095554430089 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 130750808423148126, guid: fd0c6f78b7d558647b7752af30d328d8, type: 3}
   m_PrefabInstance: {fileID: 3541207225613872855}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5128405358775770259

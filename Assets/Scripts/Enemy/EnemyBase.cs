@@ -12,7 +12,7 @@ namespace Enemy
         public float startLife = 10f;
         public Collider colliderE;
         public FlashColor flashColor;
-        public ParticleSystem enemyEarticleSystem;
+        public ParticleSystem enemyParticleSystem;
         public float damage = 5;
 
         [SerializeField]private float _currentLife;
@@ -30,7 +30,7 @@ namespace Enemy
             Init();
         }
 
-        private void OnCollisionEnter(Collision collision)
+        private  void OnCollisionEnter(Collision collision)
         {
             PlayerControler p = collision.transform.GetComponent<PlayerControler>();
 
@@ -67,6 +67,7 @@ namespace Enemy
         {
             if(colliderE != null) colliderE.enabled = false;
             isDead = true;
+            EnemyManager.instance.SpawEnemies();
             Destroy(gameObject, 3f);
             PlayAnimationByType(AnimationType.DEATH);
         }
@@ -74,7 +75,7 @@ namespace Enemy
         public void OnDamage(float f)
         {
             if (flashColor != null) flashColor.Flash();
-            if (enemyEarticleSystem != null) enemyEarticleSystem.Emit(10);
+            if (enemyParticleSystem != null) enemyParticleSystem.Emit(10);
 
             _currentLife -= f;
 
