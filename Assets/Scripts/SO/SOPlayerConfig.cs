@@ -12,7 +12,6 @@ public class SOPlayerConfig : ScriptableObject
     public float speedRun;
     public float jumpForce;
     public Vector3 friction = new Vector3(.1f, 0, .1f);
-    public Vector3 moveDirection;
 
     [Header("Animations Setup")]
     public string runBool = "Run";

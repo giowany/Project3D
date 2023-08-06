@@ -22,6 +22,8 @@ public class PlayerControler : MonoBehaviour
     public AnimationBase animationBase;
     public List<FlashColor> flashColorList;
     public HealthBase healthBase;
+    public GameObject pRotation;
+    public List<Collider> colliders;
 
     private float _currentSpeed;
     private float _vSpeed;
@@ -69,7 +71,7 @@ public class PlayerControler : MonoBehaviour
     {
         if(_isDead) return;
 
-        if (!Keyboard.current.leftShiftKey.isPressed)
+        if (_inputs.GamePlay.Run.ReadValue<float>() == 0)
         {
             _currentSpeed = playerConfig.speed;
             animator.speed = playerConfig.speedWalkAnim;
@@ -81,17 +83,27 @@ public class PlayerControler : MonoBehaviour
             animator.speed = playerConfig.speedRunAnim;
         }
 
-        Vector2 move1 = _inputs.GamePlay.Move.ReadValue<Vector2>();
+        Vector3 move = _inputs.GamePlay.Move.ReadValue<Vector3>();
+        Vector2 rotate = _inputs.GamePlay.RHorizontal.ReadValue<Vector2>();
 
-        playerConfig.moveDirection = new Vector3(0f, 0f, move1.y);
-        playerConfig.moveDirection = transform.TransformDirection(playerConfig.moveDirection);
-        playerConfig.moveDirection *= _currentSpeed;
+        RotatePlayer(move.x, move.z);
+        move = transform.TransformDirection(move);
+        move *= _currentSpeed;
         Jump();
 
-        player.Move(playerConfig.moveDirection * Time.deltaTime);
+        player.Move(move * Time.deltaTime);
 
-        transform.Rotate(0, move1.x * Time.deltaTime * playerConfig.speedRotation, 0);
-        animator.SetBool(nameBool, move1.y != 0);
+        transform.Rotate(0, rotate.x * Time.deltaTime * playerConfig.speedRotation, 0);
+
+        animator.SetBool(nameBool, move.z != 0 || move.x != 0);
+    }
+
+    private void RotatePlayer(float x, float z)
+    {
+        if (x != 0) pRotation.transform.DOLocalRotate(new Vector3(0, 90 * x, 0), .1f);
+        else if (z == -1) pRotation.transform.DOLocalRotate(new Vector3(0, 180 * z, 0), .1f);
+        else if(z == 1) pRotation.transform.DOLocalRotate(new Vector3(0, z, 0), .1f);
+
     }
 
     private void Jump()
@@ -113,13 +125,27 @@ public class PlayerControler : MonoBehaviour
 
         player.Move(velocity * Time.deltaTime);
     }
+
+    public void Respawn()
+    {
+        if (CheckPointManager.instance.HasCheckPoint())
+        {
+            transform.position = CheckPointManager.instance.GetPositionLastCheckPoint();
+            healthBase.ResetLife();
+            _isDead = false;
+            colliders.ForEach(collider => collider.enabled = true);
+            animationBase.PlayAnimationByType(AnimationType.IDLE);
+        }
+    }
     #endregion
 
     #region Healt Player
     private void OnKill(HealthBase health)
     {
         _isDead = true;
+        colliders.ForEach(collider => collider.enabled = false);
         animationBase.PlayAnimationByType(AnimationType.DEATH);
+        Invoke(nameof(Respawn), 2);
     }
 
     private void OnDamage(HealthBase health)
