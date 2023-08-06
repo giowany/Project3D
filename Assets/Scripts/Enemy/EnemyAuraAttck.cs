@@ -16,7 +16,7 @@ namespace Enemy
         {
             if (other.transform.CompareTag("Player"))
             {
-                Attack(true);
+                isAttack = true;
                 gun.StartShoot();
             }
         }
@@ -26,13 +26,13 @@ namespace Enemy
             if (other.transform.CompareTag("Player"))
             {
                 gun.StopShoot();
-                Attack(false);
+                isAttack = false;
             }
         }
 
         public void LookAtPlayr()
         {
-            if(player != null)
+            if (player != null)
                 transform.LookAt(player.transform.position);
         }
 

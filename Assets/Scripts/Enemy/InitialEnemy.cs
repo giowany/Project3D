@@ -46,10 +46,5 @@ namespace Enemy
                 PlayAnimationByType(Animation.AnimationType.RUN);
             _active = true;
         }
-
-        public void Attack(bool a)
-        {
-            isAttack = a;
-        }
     }
 }

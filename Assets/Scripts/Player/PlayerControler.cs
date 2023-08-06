@@ -7,8 +7,9 @@ using UnityEngine.EventSystems;
 using UnityEditor;
 using Animation;
 using EBAC.Core.Singleton;
+using System.Linq;
 
-public class PlayerControler : MonoBehaviour, IDamageable
+public class PlayerControler : MonoBehaviour
 {
     #region Setups
     [Header("References")]
@@ -18,25 +19,22 @@ public class PlayerControler : MonoBehaviour, IDamageable
     public SOPlayerConfig playerConfig;
     public string nameBool = "Run";
     public float gravity = -9.81f;
-    public float startLife = 10;
     public AnimationBase animationBase;
     public List<FlashColor> flashColorList;
+    public HealthBase healthBase;
 
     private float _currentSpeed;
     private float _vSpeed;
     [SerializeField]private bool _isGrounded;
     private Vector3 velocity;
     private Inputs _inputs;
-    private float _currLife;
     public bool _isDead = false;
     #endregion
 
     #region Unity Functions
     private void Awake()
     {
-        _inputs = new Inputs();
-        _inputs.GamePlay.Enable();
-        _currLife = startLife;
+        Init();
     }
 
     private void OnEnable()
@@ -58,7 +56,16 @@ public class PlayerControler : MonoBehaviour, IDamageable
     #endregion
 
     #region Controller
-    public void HandleMovement()
+    private void Init()
+    {
+        _inputs = new Inputs();
+        _inputs.GamePlay.Enable();
+
+        healthBase.onDamage += OnDamage;
+        healthBase.onKill += OnKill;
+    }
+
+    private void HandleMovement()
     {
         if(_isDead) return;
 
@@ -74,23 +81,22 @@ public class PlayerControler : MonoBehaviour, IDamageable
             animator.speed = playerConfig.speedRunAnim;
         }
 
-        float axisX = Keyboard.current[Key.D].ReadValue() - Keyboard.current[Key.A].ReadValue();
-        float axisZ = Keyboard.current[Key.W].ReadValue() - Keyboard.current[Key.S].ReadValue();
+        Vector2 move1 = _inputs.GamePlay.Move.ReadValue<Vector2>();
 
-        playerConfig.moveDirection = new Vector3(0f, 0f, axisZ);
+        playerConfig.moveDirection = new Vector3(0f, 0f, move1.y);
         playerConfig.moveDirection = transform.TransformDirection(playerConfig.moveDirection);
         playerConfig.moveDirection *= _currentSpeed;
         Jump();
 
         player.Move(playerConfig.moveDirection * Time.deltaTime);
 
-        transform.Rotate(0, axisX * Time.deltaTime * playerConfig.speedRotation, 0);
-        animator.SetBool(nameBool, axisZ != 0);
+        transform.Rotate(0, move1.x * Time.deltaTime * playerConfig.speedRotation, 0);
+        animator.SetBool(nameBool, move1.y != 0);
     }
 
     private void Jump()
     {
-        if (_isGrounded && Keyboard.current.spaceKey.wasPressedThisFrame)
+        if (_isGrounded && _inputs.GamePlay.Jump.ReadValue<float>() == 1)
         {
             velocity.y = Mathf.Sqrt(playerConfig.jumpForce * -2f * gravity);
         }
@@ -107,39 +113,19 @@ public class PlayerControler : MonoBehaviour, IDamageable
 
         player.Move(velocity * Time.deltaTime);
     }
+    #endregion
 
-    private void Kill()
-    {
-        OnKill();
-        Destroy(gameObject, 2f);
-    }
-
-    private void OnKill()
+    #region Healt Player
+    private void OnKill(HealthBase health)
     {
         _isDead = true;
         animationBase.PlayAnimationByType(AnimationType.DEATH);
     }
 
-    private void OnDamage(float damage)
+    private void OnDamage(HealthBase health)
     {
         if (_isDead) return;
         flashColorList.ForEach(i => i.Flash());
-        _currLife -= damage;
-        if (_currLife <= 0f)
-            Kill();
-    }
-    #endregion
-
-    #region Interfaces
-    public void Damage(float damage)
-    {
-        OnDamage(damage);
-    }
-
-    public void Damage(float damage, Vector3 dir)
-    {
-        transform.DOMove(transform.position - dir, .1f);
-        OnDamage(damage);
     }
     #endregion
 }

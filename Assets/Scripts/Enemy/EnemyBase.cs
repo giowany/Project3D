@@ -40,7 +40,7 @@ namespace Enemy
                 dir = -dir.normalized;
                 dir.y = 0;
 
-                p.Damage(damage, dir);
+                p.healthBase.Damage(damage, dir);
             }
         }
         #endregion

@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class GunFireLimit : GunBase
 {
-    public List<UIGunUpdater> updaterList;
+    public List<UIUpdater> updaterList;
     public float maxBullet = 5f;
     public float timeToReload = 1f;
+    public string tagGun = "gun";
 
     private float _currentShoots;
     [SerializeField]private bool _reloading;
@@ -64,12 +65,19 @@ public class GunFireLimit : GunBase
 
     private void UpdateUi()
     {
-        updaterList.ForEach(i => i.UpdateValue(maxBullet, _currentShoots));
+        updaterList.ForEach(i => i.UpdateValue(1 - (_currentShoots/ maxBullet)));
     }
 
     private void GetAllUIs()
     {
-        updaterList = GameObject.FindObjectsOfType<UIGunUpdater>().ToList();
+        updaterList = GameObject.FindObjectsOfType<UIUpdater>().ToList();
+        foreach(UIUpdater updater in updaterList)
+        {
+            if (!updater.CompareTag(tagGun))
+            {
+                updaterList.Remove(updater);
+            }
+        }
     }
 
     public override void OnReload()
