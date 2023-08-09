@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Player01
   m_EditorClassIdentifier: 
   speed: 15
-  speedRotation: 200
+  speedRotation: -331.9815
+  speedRotationCamera: 100
   speedRun: 25
   jumpForce: 5
   friction: {x: 0.1, y: 0, z: 0.1}
-  moveDirection: {x: 0, y: 0, z: 0}
   runBool: Run
   speedWalkAnim: 1
   speedRunAnim: 1.5

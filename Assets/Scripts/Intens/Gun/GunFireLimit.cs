@@ -10,8 +10,8 @@ public class GunFireLimit : GunBase
     public float timeToReload = 1f;
     public string tagGun = "gun";
 
-    private float _currentShoots;
-    [SerializeField]private bool _reloading;
+    [SerializeField] private float _currentShoots;
+    [SerializeField] private bool _reloading;
 
     private void Awake()
     {
@@ -24,12 +24,12 @@ public class GunFireLimit : GunBase
 
         while (true)
         {
-            if(_currentShoots < maxBullet) 
+            if(_currentShoots < maxBullet)
             { 
                 Shoot();
                 _currentShoots++;
                 CheckReaload();
-                UpdateUi();
+                UpdateUi(1 - (_currentShoots / maxBullet));
                 yield return new WaitForSeconds(timeBetweenShoot);
             }
         }
@@ -56,28 +56,29 @@ public class GunFireLimit : GunBase
         while (time < timeToReload)
         {
             time += Time.deltaTime;
-            updaterList.ForEach(i => i.UpdateValue(time/timeToReload));
+            UpdateUi(time / timeToReload);
             yield return new WaitForEndOfFrame();
         }
         _currentShoots = 0;
         _reloading = false;
     }
 
-    private void UpdateUi()
+    private void UpdateUi(float value)
     {
-        updaterList.ForEach(i => i.UpdateValue(1 - (_currentShoots/ maxBullet)));
+        foreach (UIUpdater updater in updaterList)
+        {
+            if (updater.CompareTag(tagGun))
+            {
+                updater.UpdateValue(value);
+            }
+        }
     }
 
     private void GetAllUIs()
     {
+        updaterList = new List<UIUpdater>();
+
         updaterList = GameObject.FindObjectsOfType<UIUpdater>().ToList();
-        foreach(UIUpdater updater in updaterList)
-        {
-            if (!updater.CompareTag(tagGun))
-            {
-                updaterList.Remove(updater);
-            }
-        }
     }
 
     public override void OnReload()

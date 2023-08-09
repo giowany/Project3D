@@ -8,6 +8,7 @@ using UnityEditor;
 using Animation;
 using EBAC.Core.Singleton;
 using System.Linq;
+using Cinemachine;
 
 public class PlayerControler : MonoBehaviour
 {
@@ -15,22 +16,34 @@ public class PlayerControler : MonoBehaviour
     [Header("References")]
     public Transform tPlayer;
     public CharacterController player;
-    public Animator animator;
     public SOPlayerConfig playerConfig;
-    public string nameBool = "Run";
-    public float gravity = -9.81f;
-    public AnimationBase animationBase;
     public List<FlashColor> flashColorList;
     public HealthBase healthBase;
     public GameObject pRotation;
     public List<Collider> colliders;
+    public ShakeCamera shakeCamera;
+    public EffectsManager effectsManager;
+
+    [Header("Atributs")]
+    public float gravity = -9.81f;
+    public bool isDead = false;
+
+    [Header("Animation")]
+    public Animator animator;
+    public string nameBool = "Run";
+    public AnimationBase animationBase;
 
     private float _currentSpeed;
     private float _vSpeed;
-    [SerializeField]private bool _isGrounded;
+    [SerializeField] private bool _isGrounded;
     private Vector3 velocity;
     private Inputs _inputs;
-    public bool _isDead = false;
+    private Vector3 _moveInput;
+    private bool _isRuning;
+    private bool _isJumping;
+    private Transform _cameraTransform;
+    private float _playerRotation = 0f;
+    [SerializeField] private Vector3 _playerInit;
     #endregion
 
     #region Unity Functions
@@ -63,15 +76,23 @@ public class PlayerControler : MonoBehaviour
         _inputs = new Inputs();
         _inputs.GamePlay.Enable();
 
+        _inputs.GamePlay.Run.started += ctx => _isRuning = true;
+        _inputs.GamePlay.Run.canceled += ctx => _isRuning = false;
+        _inputs.GamePlay.Jump.started += ctx => _isJumping = true;
+        _inputs.GamePlay.Jump.canceled += ctx => _isJumping = false;
+
         healthBase.onDamage += OnDamage;
         healthBase.onKill += OnKill;
+        _cameraTransform = Camera.main.transform;
+
+        _playerInit = transform.position;
     }
 
     private void HandleMovement()
     {
-        if(_isDead) return;
+        if(isDead) return;
 
-        if (_inputs.GamePlay.Run.ReadValue<float>() == 0)
+        if (!_isRuning)
         {
             _currentSpeed = playerConfig.speed;
             animator.speed = playerConfig.speedWalkAnim;
@@ -83,32 +104,34 @@ public class PlayerControler : MonoBehaviour
             animator.speed = playerConfig.speedRunAnim;
         }
 
-        Vector3 move = _inputs.GamePlay.Move.ReadValue<Vector3>();
+        _moveInput = _inputs.GamePlay.Move.ReadValue<Vector3>();
         Vector2 rotate = _inputs.GamePlay.RHorizontal.ReadValue<Vector2>();
 
-        RotatePlayer(move.x, move.z);
-        move = transform.TransformDirection(move);
-        move *= _currentSpeed;
+        RotatePlayer(_moveInput);
+        _moveInput = transform.TransformDirection(_moveInput);
+        _moveInput *= _currentSpeed;
         Jump();
 
-        player.Move(move * Time.deltaTime);
+        player.Move(_moveInput * Time.deltaTime);
 
-        transform.Rotate(0, rotate.x * Time.deltaTime * playerConfig.speedRotation, 0);
+        transform.Rotate(0f, rotate.x * Time.deltaTime * playerConfig.speedRotationCamera, 0f);
 
-        animator.SetBool(nameBool, move.z != 0 || move.x != 0);
+        animator.SetBool(nameBool, _moveInput.z != 0f || _moveInput.x != 0f);
     }
 
-    private void RotatePlayer(float x, float z)
+    private void RotatePlayer(Vector3 moveInput)
     {
-        if (x != 0) pRotation.transform.DOLocalRotate(new Vector3(0, 90 * x, 0), .1f);
-        else if (z == -1) pRotation.transform.DOLocalRotate(new Vector3(0, 180 * z, 0), .1f);
-        else if(z == 1) pRotation.transform.DOLocalRotate(new Vector3(0, z, 0), .1f);
-
+        if (moveInput != Vector3.zero)
+        {
+            float targetRotation = Mathf.Atan2(moveInput.x, moveInput.z) * Mathf.Rad2Deg;
+            _playerRotation = Mathf.SmoothDampAngle(_playerRotation, targetRotation + _cameraTransform.eulerAngles.y, ref playerConfig.speedRotation, 0.1f);
+            pRotation.transform.rotation = Quaternion.Euler(0f, _playerRotation, 0f);
+        }
     }
 
     private void Jump()
     {
-        if (_isGrounded && _inputs.GamePlay.Jump.ReadValue<float>() == 1)
+        if (_isGrounded && _isJumping)
         {
             velocity.y = Mathf.Sqrt(playerConfig.jumpForce * -2f * gravity);
         }
@@ -131,27 +154,41 @@ public class PlayerControler : MonoBehaviour
         if (CheckPointManager.instance.HasCheckPoint())
         {
             transform.position = CheckPointManager.instance.GetPositionLastCheckPoint();
-            healthBase.ResetLife();
-            _isDead = false;
-            colliders.ForEach(collider => collider.enabled = true);
-            animationBase.PlayAnimationByType(AnimationType.IDLE);
+            OnRespawn();
         }
+
+        else
+        {
+            transform.position = _playerInit;
+            OnRespawn();
+        }
+    }
+
+    private void OnRespawn()
+    {
+        healthBase.ResetLife();
+        isDead = false;
+        colliders.ForEach(collider => collider.enabled = true);
+        animationBase.PlayAnimationByType(AnimationType.IDLE);
+        effectsManager.ChangeVignette(0f);
     }
     #endregion
 
     #region Healt Player
     private void OnKill(HealthBase health)
     {
-        _isDead = true;
+        isDead = true;
         colliders.ForEach(collider => collider.enabled = false);
         animationBase.PlayAnimationByType(AnimationType.DEATH);
-        Invoke(nameof(Respawn), 2);
+        Invoke(nameof(Respawn), 5f);
     }
 
     private void OnDamage(HealthBase health)
     {
-        if (_isDead) return;
+        if (isDead) return;
         flashColorList.ForEach(i => i.Flash());
+        shakeCamera.Shake();
+        effectsManager.ChangeVignette((1f - (health.CurrentLife() / health.startLife)) / 2f);
     }
     #endregion
 }

@@ -27,6 +27,11 @@ public class CheckPointBase : MonoBehaviour
         checkPointRenderer.material.SetColor("_EmissionColor", Color.grey);
     }
 
+    private void Awake()
+    {
+        TurnOff();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (!_checkPointActivated && other.transform.CompareTag("Player"))

@@ -51,7 +51,7 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                     ""id"": ""d6a305f4-4090-445d-90f8-a39055247b0f"",
                     ""expectedControlType"": ""Vector3"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold"",
                     ""initialStateCheck"": true
                 },
                 {
@@ -78,7 +78,7 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                     ""id"": ""8d295703-f871-44a0-8367-2837d7b3fab0"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": """",
                     ""initialStateCheck"": false
                 }
             ],
@@ -164,8 +164,8 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                     ""name"": ""3D Vector"",
                     ""id"": ""ffc54324-4ed5-47ae-83ba-0e4e5d2ce2d8"",
                     ""path"": ""3DVector"",
-                    ""interactions"": ""Hold"",
-                    ""processors"": ""StickDeadzone"",
+                    ""interactions"": """",
+                    ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Move"",
                     ""isComposite"": true,
@@ -362,7 +362,7 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""fbd04721-2a16-4e6e-9d97-ece73672803b"",
                     ""path"": ""<Keyboard>/shift"",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Run"",
@@ -372,8 +372,8 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""6b067d9c-f75e-49e5-9a1e-c408060771d6"",
-                    ""path"": ""<Gamepad>/leftStickPress"",
-                    ""interactions"": """",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": ""Press(pressPoint=0.01)"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Run"",

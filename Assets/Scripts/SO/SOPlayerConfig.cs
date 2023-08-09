@@ -9,6 +9,7 @@ public class SOPlayerConfig : ScriptableObject
     [Header("Moviment Setup")]
     public float speed;
     public float speedRotation;
+    public float speedRotationCamera;
     public float speedRun;
     public float jumpForce;
     public Vector3 friction = new Vector3(.1f, 0, .1f);
