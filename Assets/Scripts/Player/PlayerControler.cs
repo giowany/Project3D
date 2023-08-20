@@ -10,7 +10,7 @@ using EBAC.Core.Singleton;
 using System.Linq;
 using Cinemachine;
 
-public class PlayerControler : MonoBehaviour
+public class PlayerControler : Singleton<PlayerControler>
 {
     #region Setups
     [Header("References")]
@@ -47,7 +47,7 @@ public class PlayerControler : MonoBehaviour
     #endregion
 
     #region Unity Functions
-    private void Awake()
+    private void Start()
     {
         Init();
     }
@@ -83,6 +83,8 @@ public class PlayerControler : MonoBehaviour
 
         healthBase.onDamage += OnDamage;
         healthBase.onKill += OnKill;
+        healthBase.onRecover += OnRecover;
+
         _cameraTransform = Camera.main.transform;
 
         _playerInit = transform.position;
@@ -189,6 +191,11 @@ public class PlayerControler : MonoBehaviour
         flashColorList.ForEach(i => i.Flash());
         shakeCamera.Shake();
         effectsManager.ChangeVignette((1f - (health.CurrentLife() / health.startLife)) / 2f);
+    }
+
+    private void OnRecover(HealthBase health)
+    {
+        effectsManager.ChangeVignette(0f);
     }
     #endregion
 }

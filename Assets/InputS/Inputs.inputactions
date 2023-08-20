@@ -46,8 +46,8 @@
                     "type": "Value",
                     "id": "1af1f1bc-378a-45c3-b2a2-b5b15e9eeae5",
                     "expectedControlType": "Dpad",
-                    "processors": "StickDeadzone",
-                    "interactions": "Hold",
+                    "processors": "",
+                    "interactions": "",
                     "initialStateCheck": true
                 },
                 {
@@ -57,6 +57,15 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Recover",
+                    "type": "Button",
+                    "id": "3d372af5-a807-40d6-9c3a-d1d049f0b015",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 }
             ],
@@ -285,8 +294,8 @@
                     "name": "2D Vector",
                     "id": "e89f27d8-e1fa-4f11-aa42-fe5df20da460",
                     "path": "2DVector",
-                    "interactions": "",
-                    "processors": "",
+                    "interactions": "Hold",
+                    "processors": "StickDeadzone",
                     "groups": "",
                     "action": "RHorizontal",
                     "isComposite": true,
@@ -355,6 +364,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Run",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "54bbc61d-b180-41d9-84a0-41cac80aa326",
+                    "path": "<Keyboard>/k",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Recover",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "abd641a1-471d-4ae4-8e30-816215087499",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Recover",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

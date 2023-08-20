@@ -68,8 +68,8 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                     ""type"": ""Value"",
                     ""id"": ""1af1f1bc-378a-45c3-b2a2-b5b15e9eeae5"",
                     ""expectedControlType"": ""Dpad"",
-                    ""processors"": ""StickDeadzone"",
-                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""interactions"": """",
                     ""initialStateCheck"": true
                 },
                 {
@@ -79,6 +79,15 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Recover"",
+                    ""type"": ""Button"",
+                    ""id"": ""3d372af5-a807-40d6-9c3a-d1d049f0b015"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 }
             ],
@@ -307,8 +316,8 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                     ""name"": ""2D Vector"",
                     ""id"": ""e89f27d8-e1fa-4f11-aa42-fe5df20da460"",
                     ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
+                    ""interactions"": ""Hold"",
+                    ""processors"": ""StickDeadzone"",
                     ""groups"": """",
                     ""action"": ""RHorizontal"",
                     ""isComposite"": true,
@@ -379,6 +388,28 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                     ""action"": ""Run"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""54bbc61d-b180-41d9-84a0-41cac80aa326"",
+                    ""path"": ""<Keyboard>/k"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Recover"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""abd641a1-471d-4ae4-8e30-816215087499"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Recover"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -393,6 +424,7 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
         m_GamePlay_Jump = m_GamePlay.FindAction("Jump", throwIfNotFound: true);
         m_GamePlay_RHorizontal = m_GamePlay.FindAction("RHorizontal", throwIfNotFound: true);
         m_GamePlay_Run = m_GamePlay.FindAction("Run", throwIfNotFound: true);
+        m_GamePlay_Recover = m_GamePlay.FindAction("Recover", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -458,6 +490,7 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
     private readonly InputAction m_GamePlay_Jump;
     private readonly InputAction m_GamePlay_RHorizontal;
     private readonly InputAction m_GamePlay_Run;
+    private readonly InputAction m_GamePlay_Recover;
     public struct GamePlayActions
     {
         private @Inputs m_Wrapper;
@@ -468,6 +501,7 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_GamePlay_Jump;
         public InputAction @RHorizontal => m_Wrapper.m_GamePlay_RHorizontal;
         public InputAction @Run => m_Wrapper.m_GamePlay_Run;
+        public InputAction @Recover => m_Wrapper.m_GamePlay_Recover;
         public InputActionMap Get() { return m_Wrapper.m_GamePlay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -495,6 +529,9 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                 @Run.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnRun;
                 @Run.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnRun;
                 @Run.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnRun;
+                @Recover.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnRecover;
+                @Recover.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnRecover;
+                @Recover.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnRecover;
             }
             m_Wrapper.m_GamePlayActionsCallbackInterface = instance;
             if (instance != null)
@@ -517,6 +554,9 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                 @Run.started += instance.OnRun;
                 @Run.performed += instance.OnRun;
                 @Run.canceled += instance.OnRun;
+                @Recover.started += instance.OnRecover;
+                @Recover.performed += instance.OnRecover;
+                @Recover.canceled += instance.OnRecover;
             }
         }
     }
@@ -529,5 +569,6 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnRHorizontal(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
+        void OnRecover(InputAction.CallbackContext context);
     }
 }

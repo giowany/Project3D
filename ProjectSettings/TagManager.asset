@@ -7,6 +7,8 @@ TagManager:
   - Projectile
   - Enemy
   - gun
+  - Coin
+  - LifePack
   layers:
   - Default
   - TransparentFX
@@ -15,7 +17,7 @@ TagManager:
   - Water
   - UI
   - PosProcess
-  - 
+  - Item
   - 
   - 
   - 

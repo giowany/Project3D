@@ -23,13 +23,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2829672625251364144}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.9899998, z: 0}
+  m_LocalRotation: {x: -0.008726465, y: 0, z: 0, w: 0.999962}
+  m_LocalPosition: {x: 0, y: 1.55, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2829672626179410684}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -1, y: 0, z: 0}
 --- !u!1 &2829672625958141693
 GameObject:
   m_ObjectHideFlags: 0
@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 2829672625958141688}
   - component: {fileID: 2829672625958141691}
   - component: {fileID: 2829672625958141690}
+  - component: {fileID: 168905598}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -59,7 +60,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2829672625958141693}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 495.6, y: -7.67, z: 43.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -81,11 +82,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tPlayer: {fileID: 6974743705624299983}
   player: {fileID: 2829672625958141695}
-  animator: {fileID: 4940603162369464519}
   playerConfig: {fileID: 11400000, guid: 7b183f8eac14ebb438068f1cf31612bc, type: 2}
-  nameBool: Run
-  gravity: -58.86
-  animationBase: {fileID: 2829672625958141688}
   flashColorList:
   - {fileID: 2829672626151855605}
   - {fileID: 2829672625684547419}
@@ -96,10 +93,19 @@ MonoBehaviour:
   - {fileID: 2829672624990191926}
   - {fileID: 2829672624561473481}
   healthBase: {fileID: 2829672625958141690}
-  bIndex: 0
-  aIndex: 0
+  pRotation: {fileID: 2829672626179410685}
+  colliders:
+  - {fileID: 2829672625958141695}
+  - {fileID: 2829672625958141691}
+  shakeCamera: {fileID: 0}
+  effectsManager: {fileID: 0}
+  gravity: -58.86
+  isDead: 0
+  animator: {fileID: 4940603162369464519}
+  nameBool: Run
+  animationBase: {fileID: 2829672625958141688}
   _isGrounded: 0
-  _isDead: 0
+  _playerInit: {x: 0, y: 0, z: 0}
 --- !u!143 &2829672625958141695
 CharacterController:
   m_ObjectHideFlags: 0
@@ -150,6 +156,8 @@ MonoBehaviour:
   setups:
   - animationType: 4
     trigger: Death
+  - animationType: 1
+    trigger: Alive
   animator: {fileID: 4940603162369464519}
 --- !u!136 &2829672625958141691
 CapsuleCollider:
@@ -182,6 +190,22 @@ MonoBehaviour:
   uiUpdater:
   - {fileID: 0}
   _currentLife: 0
+--- !u!114 &168905598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2829672625958141693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8955e84d4dcbb1743bef3c6b764d10aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soInt: {fileID: 0}
+  type: 1
+  health: {fileID: 2829672625958141690}
+  amountRecover: 10
 --- !u!1 &2829672626179410685
 GameObject:
   m_ObjectHideFlags: 0
@@ -761,20 +785,20 @@ SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 1457627758691751718, guid: 89e20167823a30d459856414377997d1, type: 3}
   m_PrefabInstance: {fileID: 2829672624855416490}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2829672624561473481
+--- !u!114 &2829672624990191926
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3849162484493325269}
+  m_GameObject: {fileID: 963593866558961678}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 78304576d09bb4a4898dda5223827127, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 0}
-  skinnedMeshRenderer: {fileID: 3572890313079432260}
+  skinnedMeshRenderer: {fileID: 7028386012740220107}
   color: {r: 1, g: 0, b: 0, a: 1}
   duration: 0.2
 --- !u!114 &2829672624936207401
@@ -793,20 +817,20 @@ MonoBehaviour:
   skinnedMeshRenderer: {fileID: 4296247289279249107}
   color: {r: 1, g: 0, b: 0, a: 1}
   duration: 0.2
---- !u!114 &2829672624990191926
+--- !u!114 &2829672624561473481
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963593866558961678}
+  m_GameObject: {fileID: 3849162484493325269}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 78304576d09bb4a4898dda5223827127, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 0}
-  skinnedMeshRenderer: {fileID: 7028386012740220107}
+  skinnedMeshRenderer: {fileID: 3572890313079432260}
   color: {r: 1, g: 0, b: 0, a: 1}
   duration: 0.2
 --- !u!114 &2829672625478611914
@@ -825,22 +849,6 @@ MonoBehaviour:
   skinnedMeshRenderer: {fileID: 2030542053918266859}
   color: {r: 1, g: 0, b: 0, a: 1}
   duration: 0.2
---- !u!114 &2829672625684547419
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8981326712618187989}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78304576d09bb4a4898dda5223827127, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 0}
-  skinnedMeshRenderer: {fileID: 1501391761449049405}
-  color: {r: 1, g: 0, b: 0, a: 1}
-  duration: 0.2
 --- !u!114 &2829672626151855605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -855,6 +863,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 0}
   skinnedMeshRenderer: {fileID: 5868457933842328054}
+  color: {r: 1, g: 0, b: 0, a: 1}
+  duration: 0.2
+--- !u!114 &2829672626526914434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8333160272891595127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78304576d09bb4a4898dda5223827127, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshRenderer: {fileID: 0}
+  skinnedMeshRenderer: {fileID: 3710839631142807948}
   color: {r: 1, g: 0, b: 0, a: 1}
   duration: 0.2
 --- !u!114 &2829672626403029852
@@ -873,19 +897,19 @@ MonoBehaviour:
   skinnedMeshRenderer: {fileID: 3476158342400935368}
   color: {r: 1, g: 0, b: 0, a: 1}
   duration: 0.2
---- !u!114 &2829672626526914434
+--- !u!114 &2829672625684547419
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8333160272891595127}
+  m_GameObject: {fileID: 8981326712618187989}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 78304576d09bb4a4898dda5223827127, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 0}
-  skinnedMeshRenderer: {fileID: 3710839631142807948}
+  skinnedMeshRenderer: {fileID: 1501391761449049405}
   color: {r: 1, g: 0, b: 0, a: 1}
   duration: 0.2

@@ -13,6 +13,7 @@ public class HealthBase : MonoBehaviour, IDamageable
 
     public Action<HealthBase> onKill;
     public Action<HealthBase> onDamage;
+    public Action<HealthBase> onRecover;
 
     [SerializeField] private float _currentLife;
     private bool _isDead = false;
@@ -30,6 +31,7 @@ public class HealthBase : MonoBehaviour, IDamageable
     public void ResetLife()
     {
         _currentLife = startLife;
+        onRecover?.Invoke(this);
         UiUpdate();
         _isDead = false;
     }
@@ -76,5 +78,12 @@ public class HealthBase : MonoBehaviour, IDamageable
     public void DamageDebug()
     {
         Damage(5f, Vector3.zero);
+    }
+
+    public void RecoverLife(int r)
+    {
+        _currentLife += r;
+        onRecover?.Invoke(this);
+        UiUpdate();
     }
 }
