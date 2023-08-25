@@ -9,6 +9,7 @@ TagManager:
   - gun
   - Coin
   - LifePack
+  - Iten
   layers:
   - Default
   - TransparentFX

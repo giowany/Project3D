@@ -38,6 +38,7 @@ public class HealthBase : MonoBehaviour, IDamageable
     protected virtual void Kill()
     {
         _isDead = true;
+        onKill?.Invoke(this);
         if (destroyOnKill)
             Destroy(gameObject, 3f);
     }
@@ -49,7 +50,6 @@ public class HealthBase : MonoBehaviour, IDamageable
         if (_currentLife <= 0)
         {
             Kill();
-            onKill?.Invoke(this);
         }
 
         UiUpdate();
@@ -71,7 +71,8 @@ public class HealthBase : MonoBehaviour, IDamageable
 
     private void UiUpdate()
     {
-        uiUpdater.ForEach(i => i.UpdateValue(startLife, _currentLife));
+        if(uiUpdater != null)
+            uiUpdater.ForEach(i => i.UpdateValue(startLife, _currentLife));
     }
 
     [NaughtyAttributes.Button]

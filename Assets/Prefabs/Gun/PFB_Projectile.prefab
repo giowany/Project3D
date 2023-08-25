@@ -145,6 +145,7 @@ MonoBehaviour:
   speed: 50
   tagsToHit:
   - Enemy
+  - Iten
 --- !u!54 &-5529837882535045692
 Rigidbody:
   m_ObjectHideFlags: 0

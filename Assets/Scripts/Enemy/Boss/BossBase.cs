@@ -134,26 +134,6 @@ namespace Boss
         }
         #endregion
 
-        #region DEBUG
-        [NaughtyAttributes.Button]
-        private void SwitchInit()
-        {
-            SwitchStatte(BossAction.INIT);
-        }
-
-        [NaughtyAttributes.Button]
-        private void SwitchWalk()
-        {
-            SwitchStatte(BossAction.WALK);
-        }
-        
-        [NaughtyAttributes.Button]
-        private void SwitchAttack()
-        {
-            SwitchStatte(BossAction.ATTACK);
-        }
-        #endregion
-
         #region STATE MACHINE
         public void SwitchStatte(BossAction state)
         {

@@ -89,6 +89,24 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Press"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""c23dd8cc-9ad6-45e9-8444-8fcdefa75ea9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""af9bfd93-aaf0-48db-a504-a704cfadbdc6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -106,7 +124,7 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""9d4caa4b-ab50-49d0-915c-d6baf48b57b0"",
-                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -410,6 +428,50 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                     ""action"": ""Recover"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""68fd9c38-6962-49f8-8c43-8412f1030fc0"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0379d29c-2c0f-42e3-8045-833ee5365a1b"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""02fd2b8b-2e4b-44cf-8bbc-7cdd68f2be84"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b8ff3064-89bf-4a9c-870a-cfd7a168fc55"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -425,6 +487,8 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
         m_GamePlay_RHorizontal = m_GamePlay.FindAction("RHorizontal", throwIfNotFound: true);
         m_GamePlay_Run = m_GamePlay.FindAction("Run", throwIfNotFound: true);
         m_GamePlay_Recover = m_GamePlay.FindAction("Recover", throwIfNotFound: true);
+        m_GamePlay_Interact = m_GamePlay.FindAction("Interact", throwIfNotFound: true);
+        m_GamePlay_Reload = m_GamePlay.FindAction("Reload", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -491,6 +555,8 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
     private readonly InputAction m_GamePlay_RHorizontal;
     private readonly InputAction m_GamePlay_Run;
     private readonly InputAction m_GamePlay_Recover;
+    private readonly InputAction m_GamePlay_Interact;
+    private readonly InputAction m_GamePlay_Reload;
     public struct GamePlayActions
     {
         private @Inputs m_Wrapper;
@@ -502,6 +568,8 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
         public InputAction @RHorizontal => m_Wrapper.m_GamePlay_RHorizontal;
         public InputAction @Run => m_Wrapper.m_GamePlay_Run;
         public InputAction @Recover => m_Wrapper.m_GamePlay_Recover;
+        public InputAction @Interact => m_Wrapper.m_GamePlay_Interact;
+        public InputAction @Reload => m_Wrapper.m_GamePlay_Reload;
         public InputActionMap Get() { return m_Wrapper.m_GamePlay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -532,6 +600,12 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                 @Recover.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnRecover;
                 @Recover.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnRecover;
                 @Recover.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnRecover;
+                @Interact.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnInteract;
+                @Reload.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnReload;
+                @Reload.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnReload;
+                @Reload.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnReload;
             }
             m_Wrapper.m_GamePlayActionsCallbackInterface = instance;
             if (instance != null)
@@ -557,6 +631,12 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                 @Recover.started += instance.OnRecover;
                 @Recover.performed += instance.OnRecover;
                 @Recover.canceled += instance.OnRecover;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
+                @Reload.started += instance.OnReload;
+                @Reload.performed += instance.OnReload;
+                @Reload.canceled += instance.OnReload;
             }
         }
     }
@@ -570,5 +650,7 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
         void OnRHorizontal(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
         void OnRecover(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
+        void OnReload(InputAction.CallbackContext context);
     }
 }

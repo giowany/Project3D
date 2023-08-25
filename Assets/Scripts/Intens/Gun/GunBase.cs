@@ -41,4 +41,5 @@ public class GunBase : MonoBehaviour
     }
 
     public virtual void OnReload() { }
+    protected virtual void Init() { }
 }

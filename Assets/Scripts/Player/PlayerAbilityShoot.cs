@@ -27,6 +27,7 @@ public class PlayerAbilityShoot : PlayerAbilityBase
         OnSwitchGun();
         inputs.GamePlay.Shoot.performed += ctx => StartShoot();
         inputs.GamePlay.Shoot.canceled += ctx => StopShoot();
+        inputs.GamePlay.Reload.performed += ctx => Reload();
     }
 
     private void StartShoot()
@@ -51,6 +52,11 @@ public class PlayerAbilityShoot : PlayerAbilityBase
             _currentGunIndex = 1;
             OnSwitchGun(_currentGunIndex);
         }
+    }
+
+    private void Reload()
+    {
+        _currentGuns[_currentGunIndex].OnReload();
     }
 
     private void OnSwitchGun(int i = 0)

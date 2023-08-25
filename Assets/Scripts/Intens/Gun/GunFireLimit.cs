@@ -6,16 +6,21 @@ using UnityEngine;
 public class GunFireLimit : GunBase
 {
     public List<UIUpdater> updaterList;
-    public float maxBullet = 5f;
+    public float ammo = 5f;
     public float timeToReload = 1f;
     public string tagGun = "gun";
 
-    [SerializeField] private float _currentShoots;
+    [SerializeField] private float _currentAMMO;
     [SerializeField] private bool _reloading;
 
     private void Awake()
     {
         GetAllUIs();
+    }
+
+    protected override void Init()
+    {
+        _currentAMMO = ammo;
     }
 
     protected override IEnumerator ShootCadence()
@@ -24,12 +29,12 @@ public class GunFireLimit : GunBase
 
         while (true)
         {
-            if(_currentShoots < maxBullet)
+            if(_currentAMMO > 0)
             { 
                 Shoot();
-                _currentShoots++;
-                CheckReaload();
-                UpdateUi(1 - (_currentShoots / maxBullet));
+                _currentAMMO--;
+                if(_currentAMMO == 0) CheckReaload();
+                UpdateUi((_currentAMMO / ammo));
                 yield return new WaitForSeconds(timeBetweenShoot);
             }
         }
@@ -37,7 +42,7 @@ public class GunFireLimit : GunBase
 
     private void CheckReaload()
     {
-        if(_currentShoots >= maxBullet)
+        if(_currentAMMO < ammo)
         {
             StopShoot();
             Reload();
@@ -59,7 +64,7 @@ public class GunFireLimit : GunBase
             UpdateUi(time / timeToReload);
             yield return new WaitForEndOfFrame();
         }
-        _currentShoots = 0;
+        _currentAMMO = ammo;
         _reloading = false;
     }
 
@@ -83,6 +88,6 @@ public class GunFireLimit : GunBase
 
     public override void OnReload()
     {
-        Reload();
+        CheckReaload();
     }
 }

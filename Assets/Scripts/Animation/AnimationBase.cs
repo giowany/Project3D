@@ -12,7 +12,8 @@ namespace Animation
         RUN,
         ATTACK,
         DEATH,
-        SEMMEXER
+        OPEN,
+        CLOSE
     }
 
     public class AnimationBase : MonoBehaviour

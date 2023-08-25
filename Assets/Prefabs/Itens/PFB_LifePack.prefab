@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4940853643768523910}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 156.43906, y: 26.296349, z: 244.9191}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4835679949675287957}
@@ -78,6 +78,8 @@ MonoBehaviour:
   itenType: 1
   tagPlayer: Player
   render: {fileID: 5210693251839790895}
+  text: {fileID: 0}
+  container: {fileID: 0}
 --- !u!1001 &4940853644798112382
 PrefabInstance:
   m_ObjectHideFlags: 0
