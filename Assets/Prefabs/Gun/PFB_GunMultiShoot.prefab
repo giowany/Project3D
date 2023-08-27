@@ -143,10 +143,13 @@ MonoBehaviour:
   projectileBase: {fileID: 7433166728082115692, guid: 9185af9696eacff4ca4757076e675417, type: 3}
   positionToshoot: {fileID: 2623397335246698545}
   timeBetweenShoot: 0.3
-  speed: 50
+  speed: 100
+  _bonusDamager: 0
   updaterList: []
-  maxBullet: 5
+  ammo: 5
   timeToReload: 1
+  tagGun: gun
+  _currentAMMO: 0
   _reloading: 0
   amoutPerShoot: 4
   angle: 10
@@ -174,7 +177,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2623397335246698546}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.481}
+  m_LocalPosition: {x: 0, y: 0, z: 2.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2623397334801956652}

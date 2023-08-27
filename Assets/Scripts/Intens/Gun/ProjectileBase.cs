@@ -5,7 +5,7 @@ using UnityEngine;
 public class ProjectileBase : MonoBehaviour
 {
     public float timeToDestroy = 2f;
-    public int damageAmout = 1;
+    public float damageAmout = 1f;
     public float speed = 50f;
     public List<string> tagsToHit;
 
@@ -39,13 +39,16 @@ public class ProjectileBase : MonoBehaviour
                     }
 
                     damageble.Damage(damageAmout, _dir);
+                    Destroy(gameObject);
                 }
 
                 break;
             }
+
+            else if (collision.transform.CompareTag("Projectile")) return;
+            else
+                Destroy(gameObject);
         }
 
-        if (!collision.transform.CompareTag("Projectile"))
-            Destroy(gameObject);
     }
 }

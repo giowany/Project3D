@@ -9,15 +9,23 @@ public class GunBase : MonoBehaviour
     public Transform positionToshoot;
     public float timeBetweenShoot = .3f;
     public float speed = 50f;
+    
+    
+    [SerializeField] private float _bonusDamager = 0f;
 
-    private Coroutine _currentCorotine;
+    protected Coroutine _currentCorotine;
 
-    public void StartShoot()
+    public void ChangeBonus(float bonus)
     {
-        _currentCorotine = StartCoroutine(ShootCadence());
+        _bonusDamager = bonus;
     }
 
-    public void StopShoot()
+    public virtual void StartShoot()
+    {
+            _currentCorotine = StartCoroutine(ShootCadence());
+    }
+
+    public virtual void StopShoot()
     {
         if (_currentCorotine != null)
             StopCoroutine(_currentCorotine);
@@ -38,6 +46,7 @@ public class GunBase : MonoBehaviour
         projectile.transform.position = positionToshoot.position;
         projectile.transform.rotation = positionToshoot.rotation;
         projectile.speed = speed;
+        projectile.damageAmout += _bonusDamager;
     }
 
     public virtual void OnReload() { }

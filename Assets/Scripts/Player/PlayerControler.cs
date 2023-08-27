@@ -9,6 +9,7 @@ using Animation;
 using EBAC.Core.Singleton;
 using System.Linq;
 using Cinemachine;
+using Skins;
 
 public class PlayerControler : Singleton<PlayerControler>
 {
@@ -35,7 +36,7 @@ public class PlayerControler : Singleton<PlayerControler>
 
     private float _currentSpeed;
     private float _vSpeed;
-    [SerializeField] private bool _isGrounded;
+    private bool _isGrounded;
     private Vector3 velocity;
     private Inputs _inputs;
     private Vector3 _moveInput;
@@ -43,7 +44,7 @@ public class PlayerControler : Singleton<PlayerControler>
     private bool _isJumping;
     private Transform _cameraTransform;
     private float _playerRotation = 0f;
-    [SerializeField] private Vector3 _playerInit;
+    private Vector3 _playerInit;
     #endregion
 
     #region Unity Functions
@@ -97,12 +98,14 @@ public class PlayerControler : Singleton<PlayerControler>
         if (!_isRuning)
         {
             _currentSpeed = playerConfig.speed;
+            ChangeSpeed();
             animator.speed = playerConfig.speedWalkAnim;
         }
 
         else
         {
             _currentSpeed = playerConfig.speedRun;
+            ChangeSpeed();
             animator.speed = playerConfig.speedRunAnim;
         }
 
@@ -196,6 +199,13 @@ public class PlayerControler : Singleton<PlayerControler>
     private void OnRecover(HealthBase health)
     {
         effectsManager.ChangeVignette(0f);
+    }
+    #endregion
+
+    #region Cloth Skils
+    public void ChangeSpeed()
+    {
+        _currentSpeed += ClothManager.instance.BonusSpeed();
     }
     #endregion
 }

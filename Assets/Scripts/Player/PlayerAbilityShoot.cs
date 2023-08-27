@@ -1,3 +1,4 @@
+using Skins;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,6 +33,7 @@ public class PlayerAbilityShoot : PlayerAbilityBase
 
     private void StartShoot()
     {
+        _currentGuns[_currentGunIndex].ChangeBonus(ClothManager.instance.BunosDamager());
         _currentGuns[_currentGunIndex].StartShoot();
     }
 

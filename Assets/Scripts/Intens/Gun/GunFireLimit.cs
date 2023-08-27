@@ -35,6 +35,7 @@ public class GunFireLimit : GunBase
                 _currentAMMO--;
                 if(_currentAMMO == 0) CheckReaload();
                 UpdateUi((_currentAMMO / ammo));
+                
                 yield return new WaitForSeconds(timeBetweenShoot);
             }
         }

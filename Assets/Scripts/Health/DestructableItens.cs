@@ -9,6 +9,7 @@ public class DestructableItens : MonoBehaviour
     public float shakeDuration = .1f;
     public int shakeForce = 1;
     public float force = 1f;
+    public Collider colliderIten;
 
     [Header("Itens")]
     public int dropItenAmout = 10;
@@ -23,6 +24,7 @@ public class DestructableItens : MonoBehaviour
     private void OnValidate()
     {
         if (health == null) health = GetComponent<HealthBase>();
+        if(colliderIten == null) colliderIten = GetComponent<Collider>();
     }
 
     private void Awake()
@@ -45,6 +47,7 @@ public class DestructableItens : MonoBehaviour
 
     private void OnKill(HealthBase h)
     {
+        colliderIten.enabled = false;
         DropGrupOfItens();
     }
 
