@@ -19,14 +19,29 @@ namespace Animation
     public class AnimationBase : MonoBehaviour
     {
         public List<AnimationSetup> setups;
-        public Animator animator;
+        public List<Animator> animators;
 
         public void PlayAnimationByType(AnimationType animationType)
         {
             var setup = setups.Find(i => i.animationType == animationType);
             if (setup != null)
             {
-                animator.SetTrigger(setup.trigger);
+                foreach (var item in animators)
+                {
+                    item.SetTrigger(setup.trigger);
+                }
+            }
+        }
+
+        public void AnimationBool(AnimationType animationType,bool b)
+        {
+            var setup = setups.Find(i => i.animationType == animationType);
+            if (setup != null)
+            {
+                foreach (var item in animators)
+                {
+                    item.SetBool(setup.trigger, b);
+                }
             }
         }
     }

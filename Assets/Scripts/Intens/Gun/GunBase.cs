@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
+using UnityEngine.VFX;
+using VFX;
 
 public class GunBase : MonoBehaviour
 {
@@ -47,6 +49,7 @@ public class GunBase : MonoBehaviour
         projectile.transform.rotation = positionToshoot.rotation;
         projectile.speed = speed;
         projectile.damageAmout += _bonusDamager;
+        GameVFXManager.instance.PlayVFXForType(VFXType.GUN);
     }
 
     public virtual void OnReload() { }

@@ -7,12 +7,12 @@ namespace Itens
 {
     public class CollectCoin : CollectBase
     {
-        [SerializeField] private ParticleSystem _coin;
-        public AudioSource coinAudioSource;
+        [SerializeField] private ParticleSystem _particleSystem;
+        public AudioSource AudioSource;
 
         private void Start()
         {
-            _coin = GetComponentInChildren<ParticleSystem>();
+            _particleSystem = GetComponentInChildren<ParticleSystem>();
         }
         private void DisableItem()
         {
@@ -22,9 +22,9 @@ namespace Itens
         protected override void OnCollect()
         {
             base.OnCollect();
-            if(_coin != null) _coin.Play();
-            if (coinAudioSource != null)  coinAudioSource.Play();
-            if (_coin != null)  Invoke("DisableItem", _coin.main.duration);
+            if(_particleSystem != null) _particleSystem.Play();
+            if (AudioSource != null)  AudioSource.Play();
+            if (_particleSystem != null)  Invoke("DisableItem", _particleSystem.main.duration);
         }
 
     }

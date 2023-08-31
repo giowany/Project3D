@@ -91,6 +91,11 @@ public class PlayerControler : Singleton<PlayerControler>
         _playerInit = transform.position;
     }
 
+    private void Move_canceled(InputAction.CallbackContext obj)
+    {
+        throw new System.NotImplementedException();
+    }
+
     private void HandleMovement()
     {
         if(isDead) return;
@@ -121,7 +126,7 @@ public class PlayerControler : Singleton<PlayerControler>
 
         transform.Rotate(0f, rotate.x * Time.deltaTime * playerConfig.speedRotationCamera, 0f);
 
-        animator.SetBool(nameBool, _moveInput.z != 0f || _moveInput.x != 0f);
+        animationBase.AnimationBool(AnimationType.RUN, _moveInput.z != 0f || _moveInput.x != 0f);
     }
 
     private void RotatePlayer(Vector3 moveInput)
@@ -176,6 +181,11 @@ public class PlayerControler : Singleton<PlayerControler>
         colliders.ForEach(collider => collider.enabled = true);
         animationBase.PlayAnimationByType(AnimationType.IDLE);
         effectsManager.ChangeVignette(0f);
+    }
+
+    public bool Isgrounded()
+    {
+        return _isGrounded;
     }
     #endregion
 

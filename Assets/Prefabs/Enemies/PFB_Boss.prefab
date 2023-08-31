@@ -58,7 +58,8 @@ MonoBehaviour:
     trigger: Attck
   - animationType: 4
     trigger: Death
-  animator: {fileID: 5149861435378323203}
+  animators:
+  - {fileID: 5149861435378323203}
 --- !u!65 &6615090955051102526
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -145,6 +146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startLife: 50
   destroyOnKill: 1
+  uiUpdater: []
   _currentLife: 0
 --- !u!1 &7162020888233742814
 GameObject:

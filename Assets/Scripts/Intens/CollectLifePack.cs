@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Itens
 {
-    public class CollectLifePack : CollectBase
+    public class CollectLifePack : CollectCoin
     {
         public Action<CollectLifePack> onCollect;
         public GameObject text;

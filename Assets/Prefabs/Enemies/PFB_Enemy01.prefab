@@ -57,7 +57,8 @@ MonoBehaviour:
     trigger: Attck
   - animationType: 4
     trigger: Death
-  animator: {fileID: 7877979865546203691}
+  animators:
+  - {fileID: 7877979865546203691}
 --- !u!114 &8209229936004852845
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,10 +10,12 @@ public class ProjectileBase : MonoBehaviour
     public List<string> tagsToHit;
 
     private Vector3 _dir = Vector3.zero;
+    [SerializeField] private ParticleSystem _particleSystem;
 
     private void Awake()
     {
         Destroy(gameObject, timeToDestroy);
+        _particleSystem = GetComponentInChildren<ParticleSystem>();
     }
 
     void Update()
@@ -23,10 +25,13 @@ public class ProjectileBase : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+
         foreach (var tag in tagsToHit)
         {
             if (collision.transform.CompareTag(tag))
             {
+                _particleSystem.transform.SetParent(null);
+                _particleSystem.Play();
                 var damageble = collision.transform.GetComponent<IDamageable>();
                 if (damageble != null)
                 {
@@ -35,11 +40,13 @@ public class ProjectileBase : MonoBehaviour
                         _dir = collision.transform.position - transform.position;
                         _dir = -_dir.normalized;
                         _dir.y = 0;
+                        _particleSystem.Play();
 
                     }
 
+                    _particleSystem.Play();
                     damageble.Damage(damageAmout, _dir);
-                    Destroy(gameObject);
+                    Destroy(gameObject, _particleSystem.main.duration);
                 }
 
                 break;
