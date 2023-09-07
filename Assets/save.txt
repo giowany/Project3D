@@ -1,0 +1,8 @@
+{
+    "lastCheckPoint": 1,
+    "lastLavel": 0,
+    "clothType": 0,
+    "coins": 6,
+    "LifePack": 0,
+    "playerName": "Giowany"
+}

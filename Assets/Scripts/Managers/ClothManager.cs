@@ -31,13 +31,23 @@ namespace Skins
 
         private void Init()
         {
-            ChangeTextureByType(clothType.BASIC);
+            Invoke(nameof(OnLoad), .3f);
+        }
+
+        private void OnLoad()
+        {
+            ChangeTextureByType(SaveManager.instance.SaveSetup.clothType);
         }
 
         public void ChangeTextureByType(clothType clothType)
         {
             _setup = setups.Find(i => i.clothType == clothType);
             mesh.sharedMaterials[0].SetTexture(_setup.shaderIdName, _setup.texture);
+        }
+
+        public ClothSetup GetSetup()
+        {
+            return setups.Find(i => i.clothType == _setup.clothType);
         }
 
         public float BunosDamager()

@@ -18,9 +18,11 @@ namespace Itens
         public List<InventorySetup> InventorySetups;
         public TextMeshProUGUI text;
 
-        public void Start()
+        protected override void Awake()
         {
+            base.Awake();
             ResetValues();
+            Init();
         }
 
         public void ResetValues()
@@ -29,6 +31,17 @@ namespace Itens
             {
                 i.soInt.value = 0;
             }
+        }
+
+        private void Init()
+        {
+            Invoke(nameof(OnLoad), .2f);
+        }
+
+        public void OnLoad()
+        {
+            AddItensForType(ItenType.COIN, SaveManager.instance.SaveSetup.coins);
+            AddItensForType(ItenType.LIFE_PACK, SaveManager.instance.SaveSetup.LifePack);
         }
 
         public InventorySetup GetItensForType(ItenType itenType)
@@ -41,6 +54,7 @@ namespace Itens
             if (amount < 0) return;
 
             InventorySetups.Find(i => i.itenType == itenType).soInt.value += amount;
+            LayoutManager.instance.UpdateUI(itenType);
 
         }
         

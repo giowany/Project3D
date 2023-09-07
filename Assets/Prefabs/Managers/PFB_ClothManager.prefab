@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4831047349302146151}
   - component: {fileID: 4831047349302146150}
   m_Layer: 0
-  m_Name: ClothManager
+  m_Name: PFB_ClothManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

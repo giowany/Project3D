@@ -12,9 +12,9 @@ namespace Itens
         public Transform Container;
 
         public List<ItensLayout> layouts;
-
-        private void Start()
+        protected override void Awake()
         {
+            base.Awake();
             CreatItens();
         }
 

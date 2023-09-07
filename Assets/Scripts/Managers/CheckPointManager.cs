@@ -11,21 +11,20 @@ public class CheckPointManager : Singleton<CheckPointManager>
 
     public bool HasCheckPoint()
     {
-        return lastCheckPointKey > 0;
+        return SaveManager.instance.SaveSetup.lastCheckPoint > 0;
     }
 
     public void SaveCheckPoint(int i, string s)
     {
-        if(i > lastCheckPointKey)
+        if(i > SaveManager.instance.SaveSetup.lastCheckPoint)
         {
-            lastCheckPointKey = i;
-            PlayerPrefs.SetInt(s, i);
+            SaveManager.instance.SaveLastCheckPoint(i);
         }
     }
 
     public Vector3 GetPositionLastCheckPoint()
     {
-        var position = checkPoints.Find(i => i.checkPointKey == lastCheckPointKey);
+        var position = checkPoints.Find(i => i.checkPointKey == SaveManager.instance.SaveSetup.lastCheckPoint);
         return position.transform.position;
     }
 }

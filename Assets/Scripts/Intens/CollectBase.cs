@@ -34,7 +34,6 @@ namespace Itens
         protected virtual void OnCollect()
         {
             InvetoryManager.instance.AddItensForType(itenType);
-            LayoutManager.instance.UpdateUI(itenType);
             Destroy(gameObject, 3f);
 
         }

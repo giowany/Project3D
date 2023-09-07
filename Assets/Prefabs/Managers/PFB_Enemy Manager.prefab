@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4074518159510994882}
   - component: {fileID: 4074518159510994884}
   m_Layer: 0
-  m_Name: Enemy Manager
+  m_Name: PFB_Enemy Manager
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
