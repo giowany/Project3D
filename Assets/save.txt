@@ -4,5 +4,8 @@
     "clothType": 0,
     "coins": 6,
     "LifePack": 0,
-    "playerName": "Giowany"
+    "playerName": "Giowany",
+    "sfxVolume": 0.30898457765579226,
+    "musicVolume": 0.06078482046723366,
+    "masterVolume": 1.0
 }

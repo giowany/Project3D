@@ -6,6 +6,7 @@ using DG.Tweening;
 public class MenuButtonsManager : MonoBehaviour
 {
     public List<GameObject> buttons;
+    public bool activate = false;
     [Header("Animation Setings")]
     public float duration = .5f;
     public float delay = .5f;
@@ -15,7 +16,7 @@ public class MenuButtonsManager : MonoBehaviour
 
     private void OnEnable()
     {
-        AnimationButtons();
+        if(activate) AnimationButtons();
     }
 
     private void OnDisable()
@@ -28,7 +29,7 @@ public class MenuButtonsManager : MonoBehaviour
         HideButtons();
     }
 
-    private void HideButtons()
+    public void HideButtons()
     {
         if (_curTween != null) _curTween.Kill();
 
@@ -39,7 +40,7 @@ public class MenuButtonsManager : MonoBehaviour
         }
     }
 
-    private void AnimationButtons()
+    public void AnimationButtons()
     {
         if(_curTween != null) _curTween.Kill();
 

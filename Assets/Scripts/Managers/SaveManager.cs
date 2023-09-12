@@ -1,3 +1,4 @@
+using Audio;
 using EBAC.Core.Singleton;
 using Skins;
 using System;
@@ -81,10 +82,21 @@ public class SaveManager : Singleton<SaveManager>
         Save();
     }
 
+    public void SaveVolume()
+    {
+        _saveSetup.sfxVolume = SoundManager.instance.GetSFXByType(SFXType.COIN).audioClip.volume;
+        _saveSetup.musicVolume = SoundManager.instance.GetMusicByType(MusicType.TYPE_01).audioClip.volume;
+        _saveSetup.masterVolume = AudioListener.volume;
+        _saveSetup.sfxOn = SFXPool.instance.GetActivate();
+        _saveSetup.musicOn = MusicPlayer.instance.GetActivate();
+        Save();
+    }
+
     public void SaveButton()
     {
         SaveItens();
         SaveSkin();
+        SaveVolume();
     }
 
     #endregion
@@ -121,4 +133,10 @@ public class SaveSetup
     public int coins;
     public int LifePack;
     public string playerName;
+    public float sfxVolume;
+    public float musicVolume;
+    public float masterVolume;
+    public bool sfxOn;
+    public bool musicOn;
+    public bool masterOn;
 }

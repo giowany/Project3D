@@ -8,7 +8,6 @@ namespace Itens
     public class CollectCoin : CollectBase
     {
         [SerializeField] private ParticleSystem _particleSystem;
-        public AudioSource AudioSource;
 
         private void Start()
         {
@@ -23,7 +22,6 @@ namespace Itens
         {
             base.OnCollect();
             if(_particleSystem != null) _particleSystem.Play();
-            if (AudioSource != null)  AudioSource.Play();
             if (_particleSystem != null)  Invoke("DisableItem", _particleSystem.main.duration);
         }
 

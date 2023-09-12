@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PouseGame : MonoBehaviour
 {
-    public GameObject menu;
+    public MenuButtonsManager menu;
 
     private Inputs _inputs;
     private bool _enabled = false;
@@ -34,6 +34,7 @@ public class PouseGame : MonoBehaviour
     public void Pause()
     {
         _enabled = !_enabled;
-        menu.SetActive(_enabled);
+        if (_enabled) menu.AnimationButtons();
+        else if(!_enabled) menu.HideButtons();
     }
 }
