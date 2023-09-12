@@ -53,7 +53,13 @@ public class GunFireLimit : GunBase
     private void Reload()
     {
         _reloading = true;
+        Invoke(nameof(SFXReload), .1f);
         StartCoroutine(ReloadCorotine());
+    }
+
+    private void SFXReload()
+    {
+        SFXPool.instance.Play(Audio.SFXType.RELOADING);
     }
 
     IEnumerator ReloadCorotine()

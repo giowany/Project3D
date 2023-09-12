@@ -23,11 +23,8 @@ namespace Enemy
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.transform.CompareTag("Player"))
-            {
                 gun.StopShoot();
                 isAttack = false;
-            }
         }
 
         public void LookAtPlayr()

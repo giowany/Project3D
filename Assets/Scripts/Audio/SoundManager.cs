@@ -9,8 +9,10 @@ namespace Audio
     {
         NONE,
         COIN,
-        TYPE_02,
-        TYPE_03
+        SHOOT,
+        RELOADING,
+        JUMP,
+        DAMAGE
     }
 
     public enum MusicType

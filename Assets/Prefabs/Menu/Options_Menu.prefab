@@ -362,7 +362,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Volume Master
+  m_text: Volume Efeitos
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -389,7 +389,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 42.5
+  m_fontSize: 42.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -521,6 +521,18 @@ MonoBehaviour:
       - m_Target: {fileID: 929247850022961062}
         m_TargetAssemblyTypeName: ChangeImage, Assembly-CSharp
         m_MethodName: ChangeImageBool
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: SFXPool, Assembly-CSharp
+        m_MethodName: activete
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -682,7 +694,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: -122.39
+  m_Spacing: -70.28
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -706,11 +718,12 @@ MonoBehaviour:
   - {fileID: 929247850429214139}
   - {fileID: 929247851537484575}
   - {fileID: 929247850022961060}
+  - {fileID: 2244884293056452415}
   - {fileID: 4052533794601514606}
   activate: 0
   duration: 0.5
-  delay: 0.5
-  ease: 0
+  delay: 0.2
+  ease: 27
 --- !u!1 &929247850094078055
 GameObject:
   m_ObjectHideFlags: 0
@@ -721,6 +734,7 @@ GameObject:
   m_Component:
   - component: {fileID: 929247850094078048}
   - component: {fileID: 929247850094078049}
+  - component: {fileID: 13348773}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -813,6 +827,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &13348773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 929247850094078055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b60e373188c06f42a177e1746bc3fca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeSlider: {fileID: 929247850094078049}
+  toggle: {fileID: 929247850022961063}
 --- !u!1 &929247850109739702
 GameObject:
   m_ObjectHideFlags: 0
@@ -1032,6 +1060,7 @@ GameObject:
   m_Component:
   - component: {fileID: 929247850168001105}
   - component: {fileID: 929247850168001106}
+  - component: {fileID: 402061565}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -1124,6 +1153,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &402061565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 929247850168001104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4deec233f06bafc45a3986d08df358a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeSlider: {fileID: 929247850168001106}
+  toggle: {fileID: 929247851537484570}
 --- !u!1 &929247850228020783
 GameObject:
   m_ObjectHideFlags: 0
@@ -1209,6 +1252,7 @@ GameObject:
   m_Component:
   - component: {fileID: 929247850229890341}
   - component: {fileID: 929247850229890342}
+  - component: {fileID: 403857421}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -1301,6 +1345,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &403857421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 929247850229890340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa093e6991279a640a50142a210ac4fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeSlider: {fileID: 929247850229890342}
 --- !u!1 &929247850407773247
 GameObject:
   m_ObjectHideFlags: 0
@@ -2336,6 +2393,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Audio.MusicPlayer, Assembly-CSharp
+        m_MethodName: activete
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!114 &929247851537484569
 MonoBehaviour:
@@ -2804,7 +2873,7 @@ PrefabInstance:
     - target: {fileID: 5061748732595511454, guid: d06e70a9e2138694c901e8f7b7787de7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 685149544}
     - target: {fileID: 5061748732595511454, guid: d06e70a9e2138694c901e8f7b7787de7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -2815,11 +2884,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5061748732595511454, guid: d06e70a9e2138694c901e8f7b7787de7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: HideButtons
+      value: AnimationButtons
       objectReference: {fileID: 0}
     - target: {fileID: 5061748732595511454, guid: d06e70a9e2138694c901e8f7b7787de7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: AnimationButtons
+      value: HideButtons
       objectReference: {fileID: 0}
     - target: {fileID: 5061748732595511454, guid: d06e70a9e2138694c901e8f7b7787de7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -2974,7 +3043,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3807837451515613513, guid: d06e70a9e2138694c901e8f7b7787de7, type: 3}
       propertyPath: m_Name
-      value: Salvar (1)
+      value: Salvar
       objectReference: {fileID: 0}
     - target: {fileID: 5061748732595511454, guid: d06e70a9e2138694c901e8f7b7787de7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -3126,6 +3195,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d06e70a9e2138694c901e8f7b7787de7, type: 3}
+--- !u!1 &2244884293056452415 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3807837451515613513, guid: d06e70a9e2138694c901e8f7b7787de7, type: 3}
+  m_PrefabInstance: {fileID: 3170333623454762614}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &8300740915480379823 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6398891866766297049, guid: d06e70a9e2138694c901e8f7b7787de7, type: 3}

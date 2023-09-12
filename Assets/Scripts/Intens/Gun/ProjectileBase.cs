@@ -30,8 +30,11 @@ public class ProjectileBase : MonoBehaviour
         {
             if (collision.transform.CompareTag(tag))
             {
-                _particleSystem.transform.SetParent(null);
-                _particleSystem.Play();
+                if (_particleSystem != null)
+                {
+                    _particleSystem.transform.SetParent(null);
+                    _particleSystem.Play();
+                }
                 var damageble = collision.transform.GetComponent<IDamageable>();
                 if (damageble != null)
                 {

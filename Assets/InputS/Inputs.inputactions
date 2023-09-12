@@ -355,7 +355,7 @@
                 {
                     "name": "left",
                     "id": "b4776173-89c2-4d2a-8cae-93ee2a571f28",
-                    "path": "<Mouse>/position/x",
+                    "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -377,7 +377,7 @@
                 {
                     "name": "right",
                     "id": "6034c147-47b7-4c32-8147-8c562745bc92",
-                    "path": "<Mouse>/position/x",
+                    "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

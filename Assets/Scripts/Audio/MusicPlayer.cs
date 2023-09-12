@@ -12,7 +12,7 @@ namespace Audio
         public AudioSource audioSource;
 
         private MusicSetup _currMusicSetup;
-        private bool _activate = false;
+        [SerializeField] private bool _activate = false;
 
         private void Start()
         {

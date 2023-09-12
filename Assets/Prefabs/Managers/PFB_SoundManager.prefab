@@ -42,6 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4842024347652667566}
   - component: {fileID: 4091353782068227828}
+  - component: {fileID: 509230101}
   m_Layer: 0
   m_Name: Audio Source
   m_TagString: Untagged
@@ -159,6 +160,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &509230101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5471886465705254922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbf42018e77919f408190e34e4f4be62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  audioSource: {fileID: 4091353782068227828}
+  _activate: 0
 --- !u!1 &8328180709579900288
 GameObject:
   m_ObjectHideFlags: 0
@@ -210,10 +226,10 @@ MonoBehaviour:
   - musicType: 2
     audioClip: {fileID: 8678625642803442250, guid: b5faa996dac9cbc4cab9932e7593599d, type: 3}
   sfxSetup:
-  - sfxType: 0
-    audioClip: {fileID: 0}
   - sfxType: 1
     audioClip: {fileID: 5723895834384615954, guid: fdb9f6131a5e1f041be5d52ab46b3e9d, type: 3}
   - sfxType: 2
-    audioClip: {fileID: 0}
+    audioClip: {fileID: 137219426175674298, guid: cc939db63550b4e4fa09b047da6eb442, type: 3}
+  - sfxType: 3
+    audioClip: {fileID: 6256521643292865518, guid: 3a4189a046f40d64cb7e6944429f5d82, type: 3}
   musicSource: {fileID: 4091353782068227828}

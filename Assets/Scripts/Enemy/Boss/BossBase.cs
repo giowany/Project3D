@@ -20,6 +20,7 @@ namespace Boss
     {
         public float speed = 5f;
         public List<Transform> waypoints;
+        public MenuButtonsManager winGame;
 
         public PlayerControler player;
 

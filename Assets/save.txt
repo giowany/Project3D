@@ -1,11 +1,14 @@
 {
-    "lastCheckPoint": 1,
+    "lastCheckPoint": 2,
     "lastLavel": 0,
     "clothType": 0,
-    "coins": 6,
+    "coins": 24,
     "LifePack": 0,
     "playerName": "Giowany",
-    "sfxVolume": 0.30898457765579226,
-    "musicVolume": 0.06078482046723366,
-    "masterVolume": 1.0
+    "sfxVolume": 0.18101845681667329,
+    "musicVolume": 0.12130097299814224,
+    "masterVolume": 1.0,
+    "sfxOn": false,
+    "musicOn": false,
+    "masterOn": false
 }

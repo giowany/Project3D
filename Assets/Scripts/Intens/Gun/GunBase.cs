@@ -24,13 +24,15 @@ public class GunBase : MonoBehaviour
 
     public virtual void StartShoot()
     {
-            _currentCorotine = StartCoroutine(ShootCadence());
+        _currentCorotine = StartCoroutine(ShootCadence());
     }
 
     public virtual void StopShoot()
     {
         if (_currentCorotine != null)
+        {
             StopCoroutine(_currentCorotine);
+        }
     }
 
     protected virtual IEnumerator ShootCadence()
@@ -50,6 +52,7 @@ public class GunBase : MonoBehaviour
         projectile.speed = speed;
         projectile.damageAmout += _bonusDamager;
         GameVFXManager.instance.PlayVFXForType(VFXType.GUN);
+        SFXPool.instance.Play(Audio.SFXType.SHOOT);
     }
 
     public virtual void OnReload() { }

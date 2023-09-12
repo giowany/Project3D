@@ -143,6 +143,7 @@ public class PlayerControler : Singleton<PlayerControler>
     {
         if (_isGrounded && _isJumping)
         {
+            SFXPool.instance.Play(Audio.SFXType.JUMP);
             velocity.y = Mathf.Sqrt(playerConfig.jumpForce * -2f * gravity);
         }
     }
@@ -201,6 +202,7 @@ public class PlayerControler : Singleton<PlayerControler>
     private void OnDamage(HealthBase health)
     {
         if (isDead) return;
+        SFXPool.instance.Play(Audio.SFXType.DAMAGE);
         flashColorList.ForEach(i => i.Flash());
         shakeCamera.Shake();
         effectsManager.ChangeVignette((1f - (health.CurrentLife() / health.startLife)) / 2f);

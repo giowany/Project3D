@@ -136,7 +136,7 @@ MonoBehaviour:
   minDistance: 1
   speed: 7
   isAttack: 0
-  gun: {fileID: 3093930062452930608}
+  gun: {fileID: 5341607878868634061}
   player: {fileID: 0}
 --- !u!1 &5272859085774377821
 GameObject:
@@ -399,21 +399,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: PFB_GunBaseEnemy
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1182452494050804768, guid: 4e828e989cb00f04984aaf2d764c3e86, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4e828e989cb00f04984aaf2d764c3e86, type: 3}
+--- !u!1 &5020769117070362363 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9163251091926678251, guid: 4e828e989cb00f04984aaf2d764c3e86, type: 3}
+  m_PrefabInstance: {fileID: 4217395344524508176}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5020769117070362361 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9163251091926678249, guid: 4e828e989cb00f04984aaf2d764c3e86, type: 3}
   m_PrefabInstance: {fileID: 4217395344524508176}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3093930062452930608 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1182452494050804768, guid: 4e828e989cb00f04984aaf2d764c3e86, type: 3}
+--- !u!4 &5020769116625912292 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9163251091431341556, guid: 4e828e989cb00f04984aaf2d764c3e86, type: 3}
   m_PrefabInstance: {fileID: 4217395344524508176}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+--- !u!114 &5341607878868634061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5020769117070362363}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 68b9e9ed07f3e574dac17e55ba0563dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectileBase: {fileID: 7433166728082115692, guid: 14bc03a4d49fa9a47a66c3f31b8143f5, type: 3}
+  positionToshoot: {fileID: 5020769116625912292}
+  timeBetweenShoot: 2
+  speed: 50
+  _bonusDamager: 0

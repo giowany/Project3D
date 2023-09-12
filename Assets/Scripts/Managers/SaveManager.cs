@@ -1,5 +1,6 @@
 using Audio;
 using EBAC.Core.Singleton;
+using Itens;
 using Skins;
 using System;
 using System.Collections;
@@ -65,14 +66,18 @@ public class SaveManager : Singleton<SaveManager>
 
     public void SaveItens()
     {
-        _saveSetup.coins = Itens.InvetoryManager.instance.GetItensForType(Itens.ItenType.COIN).soInt.value;
-        _saveSetup.LifePack = Itens.InvetoryManager.instance.GetItensForType(Itens.ItenType.LIFE_PACK).soInt.value;
+        if(InvetoryManager.instance != null)
+        {
+            _saveSetup.coins = Itens.InvetoryManager.instance.GetItensForType(Itens.ItenType.COIN).soInt.value;
+            _saveSetup.LifePack = Itens.InvetoryManager.instance.GetItensForType(Itens.ItenType.LIFE_PACK).soInt.value;
+        }
         Save();
     }
 
     public void SaveSkin()
     {
-        _saveSetup.clothType = Skins.ClothManager.instance.GetSetup().clothType;
+        if(ClothManager.instance != null)
+            _saveSetup.clothType = Skins.ClothManager.instance.GetSetup().clothType;
         Save();
     }
 

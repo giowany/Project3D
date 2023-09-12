@@ -76,6 +76,7 @@ namespace Boss
         {
             base.OnStateEnter(objs);
             boss.transform.localScale = Vector3.one * .2f;
+            boss.winGame.AnimationButtons();
         }
     }
 
